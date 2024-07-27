@@ -4,10 +4,8 @@ from apache_beam.io.gcp.bigquery import WriteToBigQuery
 from apache_beam.io.textio import ReadFromText
 import json
 
-# Define the pipeline options
 options = PipelineOptions()
 
-# Configure the pipeline options
 google_cloud_options = options.view_as(GoogleCloudOptions)
 google_cloud_options.project = 'sunlit-analyst-430409-b3'
 google_cloud_options.job_name = 'load-json-to-bigquery'
@@ -15,7 +13,6 @@ google_cloud_options.staging_location = 'gs://airline_inbound_data/staging/'
 google_cloud_options.temp_location = 'gs://airline_inbound_data/temp/'
 options.view_as(StandardOptions).runner = 'DirectRunner'
 
-# Define the table schema (all fields as STRING)
 table_schema = {
     "fields": [
         {"name": "Flight_Month_Year", "type": "STRING", "mode": "NULLABLE"},
@@ -35,7 +32,6 @@ table_schema = {
     ]
 }
 
-# Define field mapping from JSON to BigQuery
 field_mapping = {
     "Flight Month/Year": "Flight_Month_Year",
     "Airline": "Airline",
@@ -53,14 +49,12 @@ field_mapping = {
     "UAA  Invoice": "UAA_Invoice"
 }
 
-# Function to map JSON fields to BigQuery fields
 def map_fields(json_record):
     mapped_record = {}
     for json_field, bq_field in field_mapping.items():
         mapped_record[bq_field] = json_record.get(json_field, None)
     return mapped_record
 
-# Define the pipeline
 with beam.Pipeline(options=options) as p:
     (p
      | 'Read JSON from GCS' >> ReadFromText('gs://airline_inbound_data/03-2019.json')
