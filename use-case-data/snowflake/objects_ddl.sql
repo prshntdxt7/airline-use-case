@@ -1,0 +1,55 @@
+-- create snowflake databse and schema
+CREATE DATABASE AIRLINE;
+USE DATABASE AIRLINE;
+CREATE SCHEMA INSIGHTS;
+
+-- configure storage integration
+CREATE STORAGE INTEGRATION GCP_INTEGRATION
+  TYPE = EXTERNAL_STAGE
+  STORAGE_PROVIDER = 'GCS'
+  ENABLED = TRUE
+  STORAGE_ALLOWED_LOCATIONS = ('gcs://outbound-world/metrics');
+
+DESC STORAGE INTEGRATION GCP_INTEGRATION;
+--STORAGE_GCP_SERVICE_ACCOUNT=kooaoyasmn@azcentralindia-1-5514.iam.gserviceaccount.com
+--(note this service account for registering in GCP iam portal later on and assign required roles)
+
+-- create external stage on GCP
+CREATE OR REPLACE STAGE APP_DB.APP_SCHEMA.GCS_STAGE
+URL = 'gcs://outbound-world/metrics'
+STORAGE_INTEGRATION = GCP_INTEGRATION;
+
+-- show files available on staging path, list stages,users
+LIST @GCS_STAGE;
+SHOW STAGES;
+SHOW USERS;
+
+-- setup user for rsa key pair authentication
+ALTER USER VISUALINSIGHTS SET RSA_PUBLIC_KEY='MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAokj0opjLuArdgirxk3+w
+M9DRxRN/n0I+6vpzAFgrrHtdUFGQaRdbDy2IjbKxBYmNIpku5XbTH/2PbSfLSeue
+eRq8BFWyIfqQxdK+jiuHJvfvnzy51QTL99PEz0i5F8b/G12DeLNtRbZbFsrtdgC9
+ZHXOYu0n/8AcWMVsa6IeKUZxO+a4q+7BsGyyR2pE3CX11APPBYwBv/O3hITBKUJa
+wZYUplLfBcfepTlHpgcDrUcvcOfNzQI5E2tfMuZ5GGQANZM/UKPzS9/VGqxfW438
++oAFqAqj436qvosT3MN9AcrDUnofcQBVQ4zAS1aRcLVooRYyWg/qNs/JiWCr+PE4
+pwIDAQAB';
+
+
+-- snowflake metrics table containing historical data
+create or replace TABLE AIRLINE.INSIGHTS.FOOD_CONSUMPTION_METRICS (
+	FLIGHTNUMBER NUMBER(38,0),
+	FLIGHTDATE DATE,
+	TOTALPASSENGERS NUMBER(38,0),
+	TOTALSOLDITEMS NUMBER(38,0),
+	TOTALSALES FLOAT,
+	AVERAGESOLDITEMSPERPASSENGER FLOAT,
+	AVERAGESALESPERPASSENGER FLOAT
+);
+
+
+-- load data into metrics table from external gcs stage
+COPY INTO AIRLINE.INSIGHTS.FOOD_CONSUMPTION_METRICS
+    FROM @GCS_STAGE
+    FILE_FORMAT = (TYPE = 'CSV' FIELD_OPTIONALLY_ENCLOSED_BY = '"' FIELD_DELIMITER = ',' SKIP_HEADER = 1)
+    PATTERN = '.*snow-exports_.*\\.csv';
+
+SELECT * FROM AIRLINE.INSIGHTS.FOOD_CONSUMPTION_METRICS;
