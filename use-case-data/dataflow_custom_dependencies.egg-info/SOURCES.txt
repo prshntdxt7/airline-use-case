@@ -1,6 +1,0 @@
-setup.py
-dataflow_custom_dependencies.egg-info/PKG-INFO
-dataflow_custom_dependencies.egg-info/SOURCES.txt
-dataflow_custom_dependencies.egg-info/dependency_links.txt
-dataflow_custom_dependencies.egg-info/requires.txt
-dataflow_custom_dependencies.egg-info/top_level.txt
