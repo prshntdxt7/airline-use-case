@@ -1,5 +1,5 @@
 ---
-title: zeroG Data Engineering Case Study
+title:  Data Engineering Case Study
 ---
 
 # Task 1
@@ -34,23 +34,3 @@ As the data has a very high volume it is served to you in microbatches, instead 
 How would this change your approach?
 Deliver a short architectual diagram and description which outlines your planned solution. As with task 1, you are free to chose the tech stack which you think fits the task best.
 
-# Technology
-
-In case, you want to use cloud providers to implement your solution, please use Azure or GCP.
-
-# Glossary
-
-- Leg - a single flight from one airport to another, e.g. FRA-CDG
-- LHG - Lufthansa Group, consisting of Lufthansa, Swiss, Austrian, etc, and the fictive zeroG airline
-- Pax - passengers
-
-# Questions
-
-If you stumble upon something that is unclear, please do not hesitate to reach out to the recruitment team.
-
-# How to send us your work
-
-Please send us a compressed archive of the all relevant files (including git history) for the Tasks 1 and 2.
-
-This exercise is confidential and copyright (c) zeroG GmbH 2024. 
-Please do not share this exercise, your solution or any details on it with anyone except your interviewers.
