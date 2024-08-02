@@ -12,7 +12,7 @@ Deliver your code and documentation, include all relevant files, instructions, a
 
 ## Data
 
-The data consists of sales (in-flight sales), pax (passenger information), and loading (goods loading slip information) data for the fictional zeroG Airline for the time frame of March and April 2019.
+The data consists of sales (in-flight sales), pax (passenger information), and loading (goods loading slip information) data for the fictional Airline for the time frame of March and April 2019.
 The data comes from different teams and different systems every night in the given format. For simplicity, we aggregated it here on a monthly basis.
 
 
@@ -28,7 +28,7 @@ The data analysts want to display the relevant data, including the number of pas
 
 # Task 2
 
-Imagine the pipeline from Task 1 delivers the content of all airlines within the whole LHG instead of only the flights of the zeroG Airline.
+Imagine the pipeline from Task 1 delivers the content of all airlines within the whole LHG instead of only the flights of the Airline.
 As the data has a very high volume it is served to you in microbatches, instead of nightly batches.
 
 How would this change your approach?
