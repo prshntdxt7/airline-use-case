@@ -118,7 +118,7 @@ def snowflake_operations(**kwargs):
 
         ctx = snowflake.connector.connect(
             user='VISUALINSIGHTS',
-            password='DataMatters123',
+            password='xxxxxxxxxxxx',
             account='qtorzpp-yw14931',
             private_key=pkb,
             warehouse='COMPUTE_WH',
