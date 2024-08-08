@@ -1,9 +1,3 @@
----
-title:  Data Engineering Case Study
----
-
-# Task 1
-
 You receive data in a set of new nightly batch pipelines: Sales, Loading and Pax.
 This data should be provided to two different teams: A team of data scientists and a team of data analysts.
 Build a pipeline which delivers the data so that it fits the needs of your stakeholders best. You are free to choose a tech stack and approach, you see suitable to fulfill the requirements.
